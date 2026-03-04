@@ -17,10 +17,9 @@ int main(int argc, char * argv[]) {
 
     struct stat data_stats;
     assert(fstat(data_fd, &data_stats) != -1);
+    assert(data_stats.st_size > 0);
 
     size_t file_size = (size_t)data_stats.st_size;
-    assert(file_size > 0);
-
     char *file_content = mmap(NULL, file_size, PROT_READ, MAP_PRIVATE, data_fd, 0);
     assert(file_content != MAP_FAILED);
     assert(close(data_fd) != -1);
