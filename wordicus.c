@@ -26,9 +26,8 @@ int main(int argc, char * argv[]) {
     assert(close(data_fd) != -1);
     madvise(file_content, file_size, MADV_SEQUENTIAL);
 
-    size_t line_count = 0;
+    size_t line_count = 0, position = 0;
     __m256i newline  = _mm256_set1_epi8 ('\n');
-    size_t position = 0;
 
     for (; position + 32 <= file_size; position+= 32) {
         __m256i chunk; memcpy(&chunk, file_content + position, 32);
@@ -36,8 +35,8 @@ int main(int argc, char * argv[]) {
         uint32_t mask = _mm256_movemask_epi8(cmp_result);
         line_count += __builtin_popcountl(mask);
     }
-    for (size_t i = position; i < file_size; i++)
-        if (file_content[i] == '\n') line_count++;
+    for (; position < file_size; position++)
+        if (file_content[position] == '\n') line_count++;
 
     printf("line count : %zu\n", line_count);
     assert(munmap(file_content, file_size) != -1);
