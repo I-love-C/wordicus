@@ -6,7 +6,6 @@ typedef enum {
     FILE_NOT_FOUND,
     FILE_ERROR,
     FILE_EMPTY,
-    OVERFLOW_ON_32_BIT,
     MMAP_FAILED,
     MALLOC_FAILED,
     UNKNOWN_ERROR
@@ -16,7 +15,6 @@ static const char * Wordicus_errors[] = {
     [FILE_NOT_FOUND]     = "Given file not found",
     [FILE_ERROR]         = "Failed to read file attributes",
     [FILE_EMPTY]         = "File is empty",
-    [OVERFLOW_ON_32_BIT] = "File too large for 32-bit limits",
     [MMAP_FAILED]        = "Failed to map file to memory",
     [MALLOC_FAILED]      = "Malloc for wordicus struct failed",
     [UNKNOWN_ERROR]      = "Unknown error occurred"

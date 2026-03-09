@@ -5,17 +5,13 @@
 
 typedef struct wordicus_file_t wordicus_file_t;
 
-wordicus_file_t *wordicus_file_new(const char *filename);
+wordicus_file_t *wordicus_file_new(wordicus_file_t * wordicus_file, char *filename);
 void wordicus_file_free(wordicus_file_t * wf);
 const char *wordicus_file_get_name(const wordicus_file_t *wf);
 size_t wordicus_file_get_lines(const wordicus_file_t *wf);
 
 #if defined(__x86_64__) || defined(_M_X64) || defined(__i386__)
     #include <immintrin.h>
-#endif
-
-#if UINTPTR_MAX == 0xffffffff
-    #warning "Compiling on a 32-bit system. File sizes over 4GB not supported."
 #endif
 
 #if defined(__AVX2__)
